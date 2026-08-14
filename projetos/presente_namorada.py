@@ -1,5 +1,6 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import tkinter as tk
 
 # Datas importantes do relacionamento
 
@@ -41,5 +42,28 @@ def calcular_tempo(tempo):
 contagem_conhecemos = calcular_tempo(tempo_conhecemos)
 contagem_namoro = calcular_tempo(tempo_namoro)
 
-print(f"Nos conhecemos há {contagem_conhecemos}.")
-print(f"Namoramos há {contagem_namoro}.")
+janela = tk.Tk() # janela principal
+
+janela.title("Nós dois ❤️")
+janela.geometry("600x400")
+
+titulo = tk.Label(
+    janela,
+    text="Jorge & Leandra",
+    font=("Arial", 24, "bold")
+)
+titulo.pack()
+
+conhecemos = tk.Label(
+    janela,
+    text=f"Nos conhecemos há {contagem_conhecemos}."
+)
+conhecemos.pack()
+
+namoramos = tk.Label(
+    janela,
+    text=f"Namoramos há {contagem_namoro}."
+)
+namoramos.pack()
+
+janela.mainloop() # mantem a janela aberta e respondendo a cliques
