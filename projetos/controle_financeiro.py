@@ -1,4 +1,47 @@
 lancamentos = []
+def adicionar_lancamento(tipo):
+    descricao = input('Descrição: ')
+    valor = float(input('Valor: '))
+    novo_lancamento = {
+        "descricao": descricao,
+        "valor": valor,
+        "tipo": tipo
+    }
+    lancamentos.append(novo_lancamento)
+def listar_lancamentos():
+    if not lancamentos:
+        print('Não possui lançamentos ainda.')
+    else:
+        print(
+            '=' * 30,
+            'TODOS OS LANÇAMENTOS'.center(30, ' '),
+            '=' * 30,
+            sep='\n'
+        )
+            for item in lancamentos:
+                print(f"° {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
+def mostrar_saldo():
+    total_receitas = 0
+    total_despesas = 0
+    for item in lancamentos:
+        if item['tipo'] == 'receita':
+            total_receitas += item['valor']
+        else:
+            total_despesas += item['valor']
+    saldo = total_receitas - total_despesas
+    print(
+        '=' * 30,
+        'RESUMO DO SALDO'.center(30, ' '),
+        '=' * 30,
+        sep='\n'
+    )
+    print(
+        f'Total de Receitas: R$ {total_receitas:.2f}',
+        f'Total de Despesas: R$ {total_despesas:.2f}',
+        '=' * 30,
+        f'Saldo Atual:         R$ {saldo:.2f}',
+        sep='\n'
+    )
 while True:
     print('\n')
     print(
@@ -27,53 +70,16 @@ while True:
         continue
 
     elif opcao == 1 or opcao == 2:
-        descricao = input('Descrição: ')
-        valor = float(input('Valor: '))
         if opcao == 1:
-            tipo = 'receita'
-        elif opcao == 2:
-            tipo = 'despesa'
-        novo_lancamento = {
-            "descricao": descricao,
-            "valor": valor,
-            "tipo": tipo
-        }
-        lancamentos.append(novo_lancamento)
+            adicionar_lancamento('receita')
+        else:
+            adicionar_lancamento('despesa')
 
     elif opcao == 3:
-        if not lancamentos:
-            print('Não possui lançamentos ainda.')
-        else:
-            print(
-                '=' * 30,
-                'TODOS OS LANÇAMENTOS'.center(30, ' '),
-                '=' * 30,
-                sep='\n'
-            )
-            for item in lancamentos:
-                print(f"° {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
+        listar_lancamentos()
+
     elif opcao == 4:
-        total_receitas = 0
-        total_despesas = 0
-        for item in lancamentos:
-            if item['tipo'] == 'receita':
-                total_receitas += item['valor']
-            else:
-                total_despesas += item['valor']
-        saldo = total_receitas - total_despesas
-        print(
-            '=' * 30,
-            'RESUMO DO SALDO'.center(30, ' '),
-            '=' * 30,
-            sep = '\n'
-        )
-        print(
-            f'Total de Receitas: R$ {total_receitas:.2f}',
-            f'Total de Despesas: R$ {total_despesas:.2f}',
-            '=' * 30,
-            f'Saldo Atual:                 R$ {saldo:.2f}',
-            sep = '\n'
-        )
+        mostrar_saldo()
     else:
         print('Saindo do sistema...')
         break
