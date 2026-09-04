@@ -1,7 +1,17 @@
 lancamentos = []
 def adicionar_lancamento(tipo):
-    descricao = input('Descrição: ')
-    valor = float(input('Valor: '))
+    descricao = input('Descrição: ').strip()
+    if not descricao:
+        print('A descrição não pode ficar vazia.')
+        return
+    try:
+        valor = float(input('Valor: '))
+    except ValueError:
+        print('Digite apenas números')
+        return
+    if valor <= 0:
+        print('O valor deve ser maior que zero.')
+        return
     novo_lancamento = {
         "descricao": descricao,
         "valor": valor,
@@ -61,15 +71,14 @@ while True:
         '0 - Sair',
         sep='\n'
     )
-    opcao = int(input('Escolha uma opção: '))
+    try:
+        opcao = int(input('Escolha uma opção: '))
+    except ValueError:
+        print('Digite apenas números.')
+        continue
 
     if opcao > 4 or opcao < 0:
-        print(
-            '=' * 30,
-            'OPÇÃO INVÁLIDA'.center(30, ' '),
-            '=' * 30,
-            sep='\n'
-        )
+        print('Opção Inválida.')
         continue
 
     elif opcao == 1 or opcao == 2:
