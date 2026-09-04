@@ -18,9 +18,9 @@ def listar_lancamentos():
             '=' * 30,
             sep='\n'
         )
-            for item in lancamentos:
-                print(f"° {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
-def mostrar_saldo():
+        for item in lancamentos:
+            print(f"° {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
+def calcular_saldo():
     total_receitas = 0
     total_despesas = 0
     for item in lancamentos:
@@ -29,6 +29,9 @@ def mostrar_saldo():
         else:
             total_despesas += item['valor']
     saldo = total_receitas - total_despesas
+    return total_receitas, total_despesas, saldo
+def mostrar_saldo():
+    total_receitas, total_despesas, saldo = calcular_saldo()
     print(
         '=' * 30,
         'RESUMO DO SALDO'.center(30, ' '),
