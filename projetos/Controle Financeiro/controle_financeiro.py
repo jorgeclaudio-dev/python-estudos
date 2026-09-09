@@ -1,4 +1,11 @@
-lancamentos = []
+import json
+def carregar_lancamentos():
+    with open('lancamentos.json', 'r') as arquivo:
+        lancamentos = json.load(arquivo)
+        return lancamentos
+def salvar_lancamentos():
+    with open('lancamentos.json', 'w') as arquivo:
+        json.dump(lancamentos, arquivo, indent=4)
 def adicionar_lancamento(tipo):
     descricao = input('Descrição: ').strip()
     if not descricao:
@@ -18,6 +25,7 @@ def adicionar_lancamento(tipo):
         "tipo": tipo
     }
     lancamentos.append(novo_lancamento)
+    salvar_lancamentos()
 def listar_lancamentos():
     if not lancamentos:
         print('Não possui lançamentos ainda.')
@@ -55,6 +63,7 @@ def mostrar_saldo():
         f'Saldo Atual:         R$ {saldo:.2f}',
         sep='\n'
     )
+lancamentos = carregar_lancamentos()
 while True:
     print('\n')
     print(
