@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 def carregar_lancamentos():
     with open('lancamentos.json', 'r') as arquivo:
         lancamentos = json.load(arquivo)
@@ -19,10 +20,14 @@ def adicionar_lancamento(tipo):
     if valor <= 0:
         print('O valor deve ser maior que zero.')
         return
+
+    data = datetime.now().strftime('%d/%m/%Y')
+
     novo_lancamento = {
         "descricao": descricao,
         "valor": valor,
-        "tipo": tipo
+        "tipo": tipo,
+        "data": data
     }
     lancamentos.append(novo_lancamento)
     salvar_lancamentos()
@@ -37,7 +42,7 @@ def listar_lancamentos():
             sep='\n'
         )
         for item in lancamentos:
-            print(f"° {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
+            print(f"° {item['data']:<12} | {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
 def calcular_saldo():
     total_receitas = 0
     total_despesas = 0

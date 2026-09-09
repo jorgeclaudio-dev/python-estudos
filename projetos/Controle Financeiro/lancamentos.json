@@ -1,7 +1,14 @@
 [
     {
         "descricao": "Freelancer",
-        "valor": 546.7,
-        "tipo": "receita"
+        "valor": 435.6,
+        "tipo": "receita",
+        "data": "09/09/2026"
+    },
+    {
+        "descricao": "Ifood",
+        "valor": 56.8,
+        "tipo": "despesa",
+        "data": "09/09/2026"
     }
 ]
