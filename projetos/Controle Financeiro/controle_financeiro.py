@@ -7,6 +7,11 @@ def carregar_lancamentos():
 def salvar_lancamentos():
     with open('lancamentos.json', 'w') as arquivo:
         json.dump(lancamentos, arquivo, indent=4)
+def proximo_id():
+    if not lancamentos:
+        return 1
+
+    return max(item['id'] for item in lancamentos) + 1
 def adicionar_lancamento(tipo):
     descricao = input('Descrição: ').strip()
     if not descricao:
@@ -22,8 +27,10 @@ def adicionar_lancamento(tipo):
         return
 
     data = datetime.now().strftime('%d/%m/%Y')
+    id_lancamento = proximo_id()
 
     novo_lancamento = {
+        "id": id_lancamento,
         "descricao": descricao,
         "valor": valor,
         "tipo": tipo,
@@ -42,7 +49,7 @@ def listar_lancamentos():
             sep='\n'
         )
         for item in lancamentos:
-            print(f"° {item['data']:<12} | {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
+            print(f"° {item['id']:<4} | {item['data']:<12} | {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
 def calcular_saldo():
     total_receitas = 0
     total_despesas = 0

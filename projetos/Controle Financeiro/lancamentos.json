@@ -1,13 +1,15 @@
 [
     {
-        "descricao": "Freelancer",
-        "valor": 435.6,
+        "id": 1,
+        "descricao": "Sal\u00e1rio",
+        "valor": 800.0,
         "tipo": "receita",
         "data": "09/09/2026"
     },
     {
+        "id": 2,
         "descricao": "Ifood",
-        "valor": 56.8,
+        "valor": 56.0,
         "tipo": "despesa",
         "data": "09/09/2026"
     }
