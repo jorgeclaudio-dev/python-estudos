@@ -50,6 +50,20 @@ def listar_lancamentos():
         )
         for item in lancamentos:
             print(f"° {item['id']:<4} | {item['data']:<12} | {item['descricao']:<15} | R$ {item['valor']:>8.2f} | {item['tipo']}")
+def excluir_lancamento():
+    try:
+        id_lancamento = int(input('Digite o ID do lançamento que deseja excluír: '))
+    except ValueError:
+        print('Digite apenas números.')
+        return
+    if not any(item['id'] == id_lancamento for item in lancamentos):
+        print('Lançamento não encontrado.')
+        return
+    for item in lancamentos:
+        if item['id'] == id_lancamento:
+            lancamentos.remove(item)
+    salvar_lancamentos()
+
 def calcular_saldo():
     total_receitas = 0
     total_despesas = 0
@@ -89,6 +103,7 @@ while True:
         '2 - Adicionar despesa',
         '3 - Listar lançamentos',
         '4 - Ver saldo',
+        '5 - Excluír lançamento',
         '0 - Sair',
         sep='\n'
     )
@@ -98,7 +113,7 @@ while True:
         print('Digite apenas números.')
         continue
 
-    if opcao > 4 or opcao < 0:
+    if opcao > 5 or opcao < 0:
         print('Opção Inválida.')
         continue
 
@@ -113,6 +128,8 @@ while True:
 
     elif opcao == 4:
         mostrar_saldo()
+    elif opcao == 5:
+        excluir_lancamento()
     else:
         print('Saindo do sistema...')
         break
