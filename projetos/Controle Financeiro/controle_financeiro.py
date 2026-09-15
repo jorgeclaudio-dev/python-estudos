@@ -26,7 +26,17 @@ def adicionar_lancamento(tipo):
         print('O valor deve ser maior que zero.')
         return
 
-    data = datetime.now().strftime('%d/%m/%Y')
+    data_atual = datetime.now().strftime('%d/%m/%Y')
+    data = input(f'Data [{data_atual}]: ').strip()
+    if not data:
+        data = data_atual
+
+    try:
+        datetime.strptime(data, '%d/%m/%Y')
+    except ValueError:
+        print('Data inválida. Use o formato DD/MM/AAAA')
+        return
+
     id_lancamento = proximo_id()
 
     novo_lancamento = {
