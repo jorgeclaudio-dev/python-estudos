@@ -64,6 +64,40 @@ def excluir_lancamento():
             lancamentos.remove(item)
     salvar_lancamentos()
 
+def editar_lancamento():
+    try:
+        id_lancamento = int(input('Digite o ID: '))
+    except ValueError:
+        print('Digite apenas números.')
+        return
+    if not any(item['id'] == id_lancamento for item in lancamentos):
+        print('Lançamento não encontrado.')
+        return
+    for item in lancamentos:
+        if item['id'] == id_lancamento:
+            print(
+                'Lançamento encontrado:',
+                f"Descrição: {item['descricao']}",
+                f"Valor: R${item['valor']:.2f}",
+                sep='\n'
+            )
+            nova_descricao = input('Descrição: ').strip()
+            if not nova_descricao:
+                print('A descrição não pode ficar vazia.')
+                return
+            try:
+                novo_valor = float(input('Valor: R$ '))
+            except ValueError:
+                print('Digite apenas números.')
+                return
+            if novo_valor <= 0:
+                print('O valor deve ser maior que zero.')
+                return
+            item['descricao'] = nova_descricao
+            item['valor'] = novo_valor
+            print('Lançamento editado com sucesso.')
+    salvar_lancamentos()
+
 def calcular_saldo():
     total_receitas = 0
     total_despesas = 0
@@ -104,6 +138,7 @@ while True:
         '3 - Listar lançamentos',
         '4 - Ver saldo',
         '5 - Excluír lançamento',
+        '6 - Editar lançamento',
         '0 - Sair',
         sep='\n'
     )
@@ -113,7 +148,7 @@ while True:
         print('Digite apenas números.')
         continue
 
-    if opcao > 5 or opcao < 0:
+    if opcao > 6 or opcao < 0:
         print('Opção Inválida.')
         continue
 
@@ -128,8 +163,13 @@ while True:
 
     elif opcao == 4:
         mostrar_saldo()
+
     elif opcao == 5:
         excluir_lancamento()
+
+    elif opcao == 6:
+        editar_lancamento()
+
     else:
         print('Saindo do sistema...')
         break
